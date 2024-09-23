@@ -63,9 +63,9 @@ export default defineConfig({
     search: {
       provider: 'algolia',
       options: {
-        appId: 'A74X2RFXSU',
-        apiKey: '6961856d63f5181bf71cb4fa3e4398d2',
-        indexName: 'su-design-uni2',
+        appId: '4UD17U5YO7',
+        apiKey: 'c4d57b592d7cb4424891f4c8e2dbb3cd',
+        indexName: 'suni-design-uni2',
       },
     },
 
