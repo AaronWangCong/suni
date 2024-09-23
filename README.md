@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/npm/dt/suni?style=flat-square">
 </a>
 
-<a href="https://git.shijizhongyun.com/Front/suni">
+<a href="https://github.com/AaronWangCong/suni">
   <img alt="GitHub" src="https://img.shields.io/github/license/Moonofweisheng/suni?logo=github">
  </a>
 
