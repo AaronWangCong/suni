@@ -14,11 +14,6 @@
 
 `Suni`支持深色模式、主题定制等能力，详见[ConfigProvider 全局配置](/component/config-provider.html)组件。
 
-## 有没有技术交流群？
-
-有！
-可以加入[组件库QQ 群](/guide/join-group.html)，分享心得、交流体会。
-
 
 ## 小程序样式隔离
 
