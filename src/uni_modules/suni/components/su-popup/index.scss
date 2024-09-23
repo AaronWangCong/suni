@@ -1,0 +1,112 @@
+@import './../common/abstracts/_mixin.scss';
+@import './../common/abstracts/variable.scss';
+@import '../su-overlay/index.scss';
+
+.su-theme-dark {
+  @include b(popup) {
+    background: $-dark-background2;
+
+    @include e(close) {
+      color: $-dark-color;
+    }
+  }
+}
+
+@include b(popup) {
+  position: fixed;
+  max-height: 100%;
+  overflow-y: auto;
+  background: #fff;
+
+  @include edeep(close) {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: $-popup-close-color;
+    font-size: $-popup-close-size;
+    transform: rotate(-45deg);
+  }
+
+  @include m(center) {
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+  }
+
+  @include m(left) {
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  @include m(right) {
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  @include m(top) {
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  @include m(bottom) {
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.su-center-enter-active,
+.su-center-leave-active {
+  transition-property: opacity;
+}
+
+.su-center-enter,
+.su-center-leave-to {
+  opacity: 0;
+}
+
+.su-top-enter-active,
+.su-top-leave-active,
+.su-bottom-enter-active,
+.su-bottom-leave-active,
+.su-left-enter-active,
+.su-left-leave-active,
+.su-right-enter-active,
+.su-right-enter-active {
+  transition-property: transform;
+}
+
+.su-top-enter,
+.su-top-leave-to {
+  transform: translate3d(0, -100%, 0);
+}
+
+.su-bottom-enter,
+.su-bottom-leave-to {
+  transform: translate3d(0, 100%, 0);
+}
+
+.su-left-enter,
+.su-left-leave-to {
+  transform: translate3d(-100%, 0, 0);
+}
+
+.su-right-enter,
+.su-right-leave-to {
+  transform: translate3d(100%, 0, 0);
+}
+
+.su-zoom-in-enter-active,
+.su-zoom-in-leave-active {
+  transition-property: opacity, transform;
+  transform-origin: center center;
+}
+
+.su-zoom-in-enter,
+.su-zoom-in-leave-to {
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(0.7);
+}
