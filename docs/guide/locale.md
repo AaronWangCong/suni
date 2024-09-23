@@ -64,4 +64,4 @@ Locale.add(messages)
 | 泰文             | th-TH     | `v0.2.20` |
 | 越南文             | vi-VN    | `v0.2.20` |
 
-如果你需要使用其他的语言，欢迎贡献 [PR](https://github.com/Moonofweisheng/suni/pulls)，只需在[这里](https://github.com/Moonofweisheng/suni/tree/master/src/uni_modules/suni/locale/lang)添加一个语言配置文件即可。
+如果你需要使用其他的语言，欢迎贡献 [PR](https://github.com/AaronWangCong/suni/pulls)，只需在[这里](https://github.com/AaronWangCong/suni/tree/master/src/uni_modules/suni/locale/lang)添加一个语言配置文件即可。

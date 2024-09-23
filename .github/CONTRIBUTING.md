@@ -194,7 +194,7 @@ type：commit message
 
 ```bash
 # 添加主仓库到 remote
-git remote add upstream https://github.com/Moonofweisheng/suni.git
+git remote add upstream https://github.com/AaronWangCong/suni.git
 
 # 拉取主仓库最新代码
 git fetch upstream

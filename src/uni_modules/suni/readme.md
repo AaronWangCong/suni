@@ -7,8 +7,8 @@
 
 <p align="center">
 
-<a href="https://github.com/Moonofweisheng/suni">
-  <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Moonofweisheng/suni?logo=github&color=%234d80f0&link=https%3A%2F%2Fgithub.com%2FMoonofweisheng%2Fwot-design-uni">
+<a href="https://github.com/AaronWangCong/suni">
+  <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/AaronWangCong/suni?logo=github&color=%234d80f0&link=https%3A%2F%2Fgithub.com%2FMoonofweisheng%2Fwot-design-uni">
  </a>
 
 <a href='https://gitee.com/suni/suni/stargazers'>
@@ -28,8 +28,8 @@
   <img src="https://img.shields.io/npm/dt/suni?style=flat-square">
 </a>
 
-<a href="https://github.com/Moonofweisheng/suni">
-  <img alt="GitHub" src="https://img.shields.io/github/license/Moonofweisheng/suni?logo=github">
+<a href="https://github.com/AaronWangCong/suni">
+  <img alt="GitHub" src="https://img.shields.io/github/license/AaronWangCong/suni?logo=github">
  </a>
 
  <a href="https://github.com/actions-cool/" target="_blank" referrerpolicy="no-referrer">

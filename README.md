@@ -16,7 +16,7 @@
 </a>
 
 <a href="https://github.com/AaronWangCong/suni">
-  <img alt="GitHub" src="https://img.shields.io/github/license/Moonofweisheng/suni?logo=github">
+  <img alt="GitHub" src="https://img.shields.io/github/license/AaronWangCong/suni?logo=github">
  </a>
 
 
