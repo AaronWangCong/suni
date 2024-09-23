@@ -1,6 +1,20 @@
 # 更新日志 
 
 
+### [1.0.2](https://github.com/AaronWangCong/suni/compare/v1.0.0...v1.0.2) (2024-09-23)
+
+
+### ✏️ Documentation | 文档
+
+* ✏️  添加描述信息 ([b6fe948](https://github.com/AaronWangCong/suni/commit/b6fe948b41a88b14e68f3eb6b749b696e09ee747))
+
+### [1.0.1](https://github.com/AaronWangCong/suni/compare/v1.0.0...v1.0.1) (2024-09-23)
+
+
+### ✏️ Documentation | 文档
+
+* ✏️  添加描述信息 ([b6fe948](https://github.com/AaronWangCong/suni/commit/b6fe948b41a88b14e68f3eb6b749b696e09ee747))
+
 ## 1.0.0 (2024-09-23)
 
 
