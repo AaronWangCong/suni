@@ -1,4 +1,6 @@
-<frame/>
+<ClientOnly>
+  <frame/>
+</ClientOnly>
 
 # ConfigProvider 全局配置
 

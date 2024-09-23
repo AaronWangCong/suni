@@ -40,6 +40,7 @@
     "build:quickapp-webview-union": "uni build -p quickapp-webview-union",
     "type-check": "vue-tsc --noEmit",
     "docs:serve": "vitepress serve docs",
+    "docs:build": "vitepress build docs",
     "dev:docs": "vitepress dev docs --port 5174",
     "build:docs": "npm run build:h5 && vitepress build docs && node build/demoCopy.js",
     "preinstall": "npx only-allow pnpm",

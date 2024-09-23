@@ -1,4 +1,6 @@
-<frame/>
+<ClientOnly>
+  <frame/>
+</ClientOnly>
 
 # Button 按钮
 
