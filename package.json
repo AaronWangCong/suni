@@ -1,9 +1,9 @@
 {
   "name": "suni",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Moonofweisheng/suni.git"
+    "url": "https://github.com/AaronWangCong/suni.git"
   },
   "scripts": {
     "dev:app": "uni -p app",
