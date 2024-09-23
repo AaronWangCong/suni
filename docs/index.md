@@ -1,16 +1,16 @@
 ---
 layout: home
 
-title: Suni
+title: Sun-uni
 titleTemplate: 一个基于Vue3+TS开发的uni-app组件库，提供70+高质量组件，支持暗黑模式、国际化和自定义主题。
 
 hero:
-  name: Suni
+  name: Sun-uni
   text: 高颜值、轻量化的uni-app组件库
   tagline: 基于Vue3+TS开发，提供70+高质量组件，支持暗黑模式、国际化和自定义主题。
   image:
     src: /sun-design.png
-    alt: Sun Design
+    alt: Sun-uni
   actions:
     - theme: brand
       text: 🏀 快速上手

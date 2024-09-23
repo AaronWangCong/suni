@@ -38,7 +38,7 @@ export default defineConfig({
     //   sourcemap: false // 这个生产环境一定要关闭，不然打包的产物会很大
     // }
   },
-  title: `Suni`,
+  title: `Sun uni`,
   description: '一个参照wot-design打造的uni-app组件库',
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],

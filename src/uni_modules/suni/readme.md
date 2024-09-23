@@ -1,9 +1,9 @@
 <p align="center">
     <img alt="logo" src="https://suni.pages.dev/su-design.png" width="200">
 </p>
-<h1 align="center">Suni</h1>
+<h1 align="center">Sun-uni</h1>
 
-<p align="center">📱 一个基于vue3+Typescript构建，参照<a href="https://ftf.jd.com/su-design/">su-design</a>打造的uni-app组件库</p>
+<p align="center">📱 一个基于vue3+Typescript构建，参照<a href="https://ftf.jd.com/wot-design/">wot-design</a>打造的uni-app组件库</p>
 
 <p align="center">
 

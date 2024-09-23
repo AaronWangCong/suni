@@ -5,11 +5,11 @@
         <view class="page__title">
           <view class="logo"></view>
           <view class="inline">
-            Suni
+            Sun-uni
             <text class="version">@{{ packageConfig.version }}</text>
           </view>
         </view>
-        <view class="page__desc">Suni 是一个基于Vue3+TS开发的uni-app组件库，提供70+高质量组件，支持暗黑模式、国际化和自定义主题。</view>
+        <view class="page__desc">Sun-uni 是一个基于Vue3+TS开发的uni-app组件库，提供70+高质量组件，支持暗黑模式、国际化和自定义主题。</view>
       </view>
       <view class="page__bd">
         <block v-for="(item, index) in list" :key="index">

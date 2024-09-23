@@ -1,7 +1,7 @@
 <p align="center">
     <img alt="logo" src="./favicon.ico" width="200">
 </p>
-<h1 align="center">Suni</h1>
+<h1 align="center">Sun-uni</h1>
 
 <p align="center">📱 一个基于vue3+Typescript构建，参照<a href="https://github.com/jd-ftf/wot-design-mini?tab=readme-ov-file">wot-design</a>打造的uni-app组件库</p>
 
