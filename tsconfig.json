@@ -1,24 +1,28 @@
 {
+  "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
-    "resolveJsonModule":true,
+    "resolveJsonModule": true,
     "noImplicitAny": true,
     "importHelpers": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators":true,
+    "experimentalDecorators": true,
     "sourceMap": false,
     "skipLibCheck": true,
-    "verbatimModuleSyntax":true,
+    "verbatimModuleSyntax": true,
+    "noImplicitThis": false,
     "baseUrl": ".",
     "types": [
       "@dcloudio/types",
       "miniprogram-api-typings",
-      "mini-types"
+      "mini-types",
+      "vue",
+      "@uni-helper/uni-types"
     ],
     "paths": {
       "@/*": [
@@ -32,9 +36,20 @@
       "scripthost"
     ]
   },
+  "vueCompilerOptions": {
+    // 调整 Volar（Vue 语言服务工具）解析行为，用于为 uni-app 组件提供 TypeScript 类型
+    "plugins": [
+      "@uni-helper/uni-types/volar-plugin"
+    ],
+    "extensions": [
+      ".vue",
+      ".nvue"
+    ],
+  },
   "exclude": [
     "node_modules",
     "unpackage",
-    "src/**/*.nvue"
+    "src/**/*.nvue",
+    "src/uni_modules/sun-uni/libs/config/props.ts"
   ],
 }

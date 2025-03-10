@@ -1,0 +1,75 @@
+<template>
+  <view class="su-page">
+    <up-navbar-mini safeAreaInsetTop fixed :autoBack="true"></up-navbar-mini>
+    <view class="su-page__item">
+      <text class="su-page__item__title">基础功能</text>
+      <up-navbar-mini homeUrl="/pages/index/index" :safeAreaInsetTop="true" :fixed="true" @leftClick="leftClick"></up-navbar-mini>
+    </view>
+    <view class="su-page__item">
+      <text class="su-page__item__title">自定义插槽</text>
+      <up-navbar-mini :fixed="false" :safeAreaInsetTop="false">
+        <template #left>
+          <up-icon name="arrow-left" size="19"></up-icon>
+        </template>
+      </up-navbar-mini>
+    </view>
+    <up-gap height="50"></up-gap>
+  </view>
+</template>
+
+<script>
+export default {
+  data() {
+    return {}
+  },
+  methods: {
+    navigateBack() {
+      uni.navigateBack({
+        delta: 1
+      })
+    },
+    leftClick() {
+      console.log('leftClick')
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+/* #ifndef APP-NVUE */
+page {
+  background-color: $su-bg-color;
+}
+/* #endif */
+
+.su-page {
+  padding: 0;
+  flex: 1;
+  background-color: $su-bg-color;
+
+  &__item {
+    &__title {
+      color: $su-tips-color;
+      background-color: $su-bg-color;
+      padding: 15px;
+      font-size: 15px;
+
+      &__slot-title {
+        color: $su-primary;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.su-nav-slot {
+  @include flex;
+  align-items: center;
+  justify-content: space-between;
+  border-width: 0.5px;
+  border-radius: 100px;
+  border-color: $su-border-color;
+  padding: 3px 7px;
+  opacity: 0.8;
+}
+</style>

@@ -1,0 +1,44 @@
+// 此文件为uView的主题变量，这些变量目前只能通过uni.scss引入才有效，另外由于
+// uni.scss中引入的样式会同时混入到全局样式文件和单独每一个页面的样式中，造成微信程序包太大，
+// 故uni.scss只建议放scss变量名相关样式，其他的样式可以通过main.js或者App.vue引入
+
+$su-main-color: #303133;
+$su-content-color: #606266;
+$su-tips-color: #909193;
+$su-light-color: #c0c4cc;
+$su-border-color: #dadbde;
+$su-bg-color: #f3f4f6;
+$su-disabled-color: #c8c9cc;
+
+$su-primary: #3c9cff;
+$su-primary-dark: #398ade;
+$su-primary-disabled: #9acafc;
+$su-primary-light: #ecf5ff;
+
+$su-warning: #f9ae3d;
+$su-warning-dark: #f1a532;
+$su-warning-disabled: #f9d39b;
+$su-warning-light: #fdf6ec;
+
+$su-success: #5ac725;
+$su-success-dark: #53c21d;
+$su-success-disabled: #a9e08f;
+$su-success-light: #f5fff0;
+
+$su-error: #f56c6c;
+$su-error-dark: #e45656;
+$su-error-disabled: #f7b2b2;
+$su-error-light: #fef0f0;
+
+$su-info: #909399;
+$su-info-dark: #767a82;
+$su-info-disabled: #c4c6c9;
+$su-info-light: #f4f4f5;
+
+// scss混入，为了少写几行#ifndef
+@mixin flex($direction: row) {
+	/* #ifndef APP-NVUE */
+	display: flex;
+	/* #endif */
+	flex-direction: $direction;
+}

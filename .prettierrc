@@ -7,5 +7,13 @@
   "requirePragma": false,
   "proseWrap": "preserve",
   "arrowParens": "always",
-  "htmlWhitespaceSensitivity": "ignore"
+  "htmlWhitespaceSensitivity": "ignore",
+  "overrides": [
+    {
+      "files": "*.nvue",
+      "options": {
+        "parser": "vue"
+      }
+    }
+  ]
 }

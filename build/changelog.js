@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const fromPath = path.resolve(__dirname, '../CHANGELOG.md')
-const toPath = path.resolve(__dirname, '../src/uni_modules/suni')
+const toPath = path.resolve(__dirname, '../src/uni_modules/sun-uni')
 const docPath = path.resolve(__dirname, '../docs/guide')
 
 try {

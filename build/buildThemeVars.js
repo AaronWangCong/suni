@@ -69,8 +69,8 @@ const generateTSFileContent = (variables) => {
   return tsContent
 }
 
-const tsFilePath = path.resolve(__dirname, '../src/uni_modules/suni/components/su-config-provider/type.ts')
-const scssFilePath = path.resolve(__dirname, '../src/uni_modules/suni/components/common/abstracts/test.scss')
+const tsFilePath = path.resolve(__dirname, '../src/uni_modules/sun-uni/components/su-config-provider/type.ts')
+const scssFilePath = path.resolve(__dirname, '../src/uni_modules/sun-uni/components/common/abstracts/test.scss')
 
 const variables = extractSCSSVariables(scssFilePath)
 const tsContent = generateTSFileContent(variables)

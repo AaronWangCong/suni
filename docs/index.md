@@ -14,13 +14,13 @@ hero:
   actions:
     - theme: brand
       text: 🏀 快速上手
-      link: /guide/quick-use
-    - theme: alt
-      text: 🧸 常见问题
-      link: /guide/common-problems
+      link: /component/quickstart
     - theme: alt
       text: 🎁 组件列表
       link: /component/button
+    - theme: alt
+      text: 🧸 Hooks
+      link: /hooks/intro
 
 features:
   - icon: 🎯

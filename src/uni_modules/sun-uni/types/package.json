@@ -1,0 +1,23 @@
+{
+  "name": "@sun-uni/types",
+  "version": "3.2.5",
+  "description": "types for sun-uni",
+  "main": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "https://github.com/AaronWangCong/suni.git",
+  "keywords": [
+    "sun-uni"
+  ],
+  "author": "jry",
+  "license": "MIT",
+  "types": "./index.d.ts",
+  "bugs": {
+    "url": "https://github.com/AaronWnagCong/sun-uni/issues"
+  },
+  "homepage": "https://suni.pages.dev/",
+  "publishConfig": {
+    "registry": "http://npm.wangcong.wang/"
+  }
+}

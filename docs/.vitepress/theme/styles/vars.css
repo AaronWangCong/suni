@@ -16,6 +16,7 @@
   /* 20 */
   --vp-c-brand-darker: #3e66c0;
   --vp-c-brand-dimm: rgba(100, 108, 255, 0.08);
+  --vp-layout-max-width: 1680px;
 }
 
 /**
@@ -63,6 +64,17 @@
 @media (min-width: 960px) {
   :root {
     --vp-home-hero-image-filter: blur(72px);
+  }
+}
+
+@media (min-width: 1440px) {
+  .VPContent.has-sidebar {
+    padding-right: calc((100vw - var(--vp-layout-max-width))) !important;
+  }
+  
+  .VPDoc.has-aside .content-container {
+    margin: inherit;
+    max-width: inherit !important;
   }
 }
 

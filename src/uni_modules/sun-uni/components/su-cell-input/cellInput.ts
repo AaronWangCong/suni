@@ -1,0 +1,25 @@
+export default {
+  cellInput: {
+    label: '',
+    type: 'text',
+    confirmType: 'done',
+    labelWidth: 100,
+    labelStyle: {},
+    customStyle: {},
+    height: 86,
+    focus: false,
+    isRequest: false,
+    inputAlign: 'left',
+    isError: false,
+    placeholder: '请输入',
+    placeholderStyle: 'color: #ccc;font-size: 14px',
+    trim: true,
+    clearable: true,
+    selectionStart: -1,
+    selectionEnd: -1,
+    maxlength: 140,
+    cursorSpacing: 0,
+    isCustom: false,
+    selectOpen: false,
+  }
+}

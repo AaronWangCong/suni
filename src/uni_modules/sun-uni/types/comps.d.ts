@@ -1,0 +1,101 @@
+declare module '@vue/runtime-core' {
+  export interface GlobalComponents {
+    // 基础组件
+    ['su-icon']: (typeof import('./comps/icon'))['Icon']
+    ['su-image']: (typeof import('./comps/image'))['Image']
+    ['su-button']: (typeof import('./comps/button'))['Button']
+    ['su-text']: (typeof import('./comps/text'))['Text']
+    ['su-row']: (typeof import('./comps/row'))['Row']
+    ['su-col']: (typeof import('./comps/col'))['Col']
+    ['su-cell']: (typeof import('./comps/cell'))['Cell']
+    ['su-cell-group']: (typeof import('./comps/cellGroup'))['CellGroup']
+    ['su-badge']: (typeof import('./comps/badge'))['Badge']
+    ['su-tag']: (typeof import('./comps/tag'))['Tag']
+    ['su-loading-icon']: (typeof import('./comps/loadingIcon'))['LoadingIcon']
+    ['su-loading-page']: (typeof import('./comps/loadingPage'))['LoadingPage']
+
+    // 表单组件
+    ['su-form']: (typeof import('./comps/form'))['Form']
+    ['su-form-item']: (typeof import('./comps/formItem'))['FormItem']
+    ['su-calendar']: (typeof import('./comps/calendar'))['Calendar']
+    ['su-keyboard']: (typeof import('./comps/keyboard'))['Keyboard']
+    ['su-picker']: (typeof import('./comps/picker'))['Picker']
+    ['su-datetime-picker']: (typeof import('./comps/datetimePicker'))['DatetimePicker']
+    ['su-rate']: (typeof import('./comps/rate'))['Rate']
+    ['su-search']: (typeof import('./comps/search'))['Search']
+    ['su-number-box']: (typeof import('./comps/numberBox'))['NumberBox']
+    ['su-upload']: (typeof import('./comps/upload'))['Upload']
+    ['su-code']: (typeof import('./comps/code'))['Code']
+    ['su-input']: (typeof import('./comps/input'))['Input']
+    ['su-textarea']: (typeof import('./comps/textarea'))['Textarea']
+    ['su-checkbox']: (typeof import('./comps/checkbox'))['Checkbox']
+    ['su-checkbox-group']: (typeof import('./comps/checkboxGroup'))['CheckboxGroup']
+    ['su-radio']: (typeof import('./comps/radio'))['Radio']
+    ['su-radio-group']: (typeof import('./comps/radioGroup'))['RadioGroup']
+    ['su-switch']: (typeof import('./comps/switch'))['Switch']
+    ['su-slider']: (typeof import('./comps/slider'))['Slider']
+    ['su-album']: (typeof import('./comps/album'))['Album']
+
+    // 数据组件
+    ['su-list']: (typeof import('./comps/list'))['List']
+    ['su-list-item']: (typeof import('./comps/listItem'))['ListItem']
+    ['su-line-progress']: (typeof import('./comps/lineProgress'))['LineProgress']
+    ['su-count-down']: (typeof import('./comps/countDown'))['CountDown']
+    ['su-count-to']: (typeof import('./comps/countTo'))['CountTo']
+
+    // 反馈组件
+    ['su-tooltip']: (typeof import('./comps/tooltip'))['Tooltip']
+    ['su-action-sheet']: (typeof import('./comps/actionSheet'))['ActionSheet']
+    ['su-alert']: (typeof import('./comps/alert'))['Alert']
+    ['su-toast']: (typeof import('./comps/toast'))['Toast']
+    ['su-notice-bar']: (typeof import('./comps/noticeBar'))['NoticeBar']
+    ['su-notify']: (typeof import('./comps/notify'))['Notify']
+    ['su-swipe-action']: (typeof import('./comps/swipeAction'))['SwipeAction']
+    ['su-swipe-action-item']: (typeof import('./comps/swipeActionItem'))['SwipeActionItem']
+    ['su-collapse']: (typeof import('./comps/collapse'))['Collapse']
+    ['su-collapse-item']: (typeof import('./comps/collapseItem'))['CollapseItem']
+    ['su-popup']: (typeof import('./comps/popup'))['Popup']
+    ['su-modal']: (typeof import('./comps/modal'))['Modal']
+
+    // 布局组件
+    ['su-scroll-list']: (typeof import('./comps/scrollList'))['ScrollList']
+    ['su-line']: (typeof import('./comps/line'))['Line']
+    ['su-overlay']: (typeof import('./comps/overlay'))['Overlay']
+    ['su-no-network']: (typeof import('./comps/noNetwork'))['NoNetwork']
+    ['su-grid']: (typeof import('./comps/grid'))['Grid']
+    ['su-grid-item']: (typeof import('./comps/gridItem'))['GridItem']
+    ['su-swiper']: (typeof import('./comps/swiper'))['Swiper']
+    ['su-skeleton']: (typeof import('./comps/skeleton'))['Skeleton']
+    ['su-sticky']: (typeof import('./comps/sticky'))['Sticky']
+    ['su-divider']: (typeof import('./comps/divider'))['Divider']
+
+    // 导航组件
+    ['su-tabbar']: (typeof import('./comps/tabbar'))['Tabbar']
+    ['su-tabbar-item']: (typeof import('./comps/tabbarItem'))['TabbarItem']
+    ['su-back-top']: (typeof import('./comps/backTop'))['BackTop']
+    ['su-navbar']: (typeof import('./comps/navbar'))['Navbar']
+    ['su-tabs']: (typeof import('./comps/tabs'))['Tabs']
+    ['su-subsection']: (typeof import('./comps/subsection'))['Subsection']
+    ['su-index-list']: (typeof import('./comps/indexList'))['IndexList']
+    ['su-index-item']: (typeof import('./comps/indexItem'))['IndexItem']
+    ['su-index-anchor']: (typeof import('./comps/indexAnchor'))['IndexAnchor']
+    ['su-steps']: (typeof import('./comps/steps'))['Steps']
+    ['su-steps-item']: (typeof import('./comps/stepsItem'))['StepsItem']
+    ['su-empty']: (typeof import('./comps/empty'))['Empty']
+
+    // 其他组件
+    ['su-parse']: (typeof import('./comps/parse'))['Parse']
+    ['su-code-input']: (typeof import('./comps/codeInput'))['CodeInput']
+    ['su-loadmore']: (typeof import('./comps/loadMore'))['LoadMore']
+    ['su-read-more']: (typeof import('./comps/readMore'))['ReadMore']
+    ['su-gap']: (typeof import('./comps/gap'))['Gap']
+    ['su-avatar']: (typeof import('./comps/avatar'))['Avatar']
+    ['su-avatar-group']: (typeof import('./comps/avatarGroup'))['AvatarGroup']
+    ['su-link']: (typeof import('./comps/link'))['Link']
+    ['su-transition']: (typeof import('./comps/transition'))['Transition']
+    ['su-status-bar']: (typeof import('./comps/statusBar'))['StatusBar']
+    ['su-safe-bottom']: (typeof import('./comps/safeBottom'))['SafeBottom']
+  }
+}
+
+export {}

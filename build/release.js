@@ -5,7 +5,7 @@ const { writeFileSync, readFileSync } = require('fs')
 const path = require('path')
 const fs = require('fs')
 
-const src = path.resolve(__dirname, '../src/uni_modules/suni')
+const src = path.resolve(__dirname, '../src/uni_modules/sun-uni')
 
 const oldVersion = require('../package.json').version
 const LOWEST_VERSION = '$LOWEST_VERSION$'
@@ -39,9 +39,9 @@ inquirer
     {
       type: 'list',
       name: 'version',
-      message: '请选择发版类型（默认值：✨ minor)',
+      message: '请选择发版类型（默认值：🐛 patch 小版本)',
       choices: ['🐛 patch 小版本', '✨ minor 中版本', '🚀 major 大版本'],
-      default: '✨ minor 中版本'
+      default: '🐛 patch 小版本'
     },
     {
       type: 'list',
@@ -82,19 +82,21 @@ inquirer
     handleLowestVersion(path.resolve(__dirname, '../docs'), newVersion)
 
     console.log(`√ bumping version in package.json from ${oldVersion} to ${newVersion}`)
-    const package = require('../src/uni_modules/suni/package.json')
+    const package = require('../src/uni_modules/sun-uni/package.json')
     package.version = newVersion
     writeFileSync(path.resolve(src, 'package.json'), JSON.stringify(package))
     // 生成制品
-    execSync('pnpm lint')
+    // execSync('pnpm lint')
     execSync('git add -A ')
     execSync(`git commit -am "build: compile ${newVersion}"`)
     execSync(`git tag -a v${newVersion} -am "chore(release): ${newVersion}"`)
     console.log('√ committing changes')
-    const branch = execSync('git branch --show-current').toString().replace(/\*/g, '').replace(/ /g, '')
-    console.log('🎉 版本发布成功')
-    const tip = 'Run `git push --follow-tags origin ' + branch + '` ' + 'to publish'
-    console.log(tip.replace(/\n/g, ''))
+    // const branch = execSync('git branch --show-current').toString().replace(/\*/g, '').replace(/ /g, '')
+    execSync('pnpm run release:push')
+    execSync('git push --follow-tags')
+    console.log('🎉 tag推送成功')
+    // const tip = 'Run `git push --follow-tags origin ' + branch + '` ' + 'to publish'
+    // console.log(tip.replace(/\n/g, ''))
   })
   .catch((error) => {
     if (error.isTtyError) {

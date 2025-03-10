@@ -1,0 +1,113 @@
+### LoadingIcon 加载动画 <to-api />
+
+小动画组件
+
+<demo-model url="/pages/components/loading-icon/loading-icon"></demo-model>
+
+### 平台差异说明
+
+| App(vue) | App(nvue) | H5  | 微信小程序 |
+| :------: | :-------: | :-: | :--------: |
+|    √     |     √     |  √  |     √      |
+
+### 基本使用
+
+通过`mode`设定动画的类型，`circle`为圆圈的形状，`flower`为经典类似花朵的形状
+
+```html
+<template>
+  <su-loading-icon></su-loading-icon>
+</template>
+```
+
+### 动画文字
+
+`text`可以指定文字内容 `textSize`可以指定文字大小
+
+```html
+<su-loading-icon text="加载中" textSize="18"></su-loading-icon>
+```
+
+### 模式类型
+
+`mode`可以指定模式
+
+```html
+<su-loading-icon text="花朵形"></su-loading-icon>
+<su-loading-icon mode="semicircle" text="半圆"></su-loading-icon>
+<su-loading-icon mode="circle" text="圆型"></su-loading-icon>
+```
+
+### 排列类型
+
+`vertical`可以指定文字和图标是否垂直排列
+
+```html
+<su-loading-icon :vertical="true"></su-loading-icon>
+```
+
+### 动画模式
+
+`timing-function`可以指定`mode`为`semicircle`或`circle`时动画里css中`animation-timing-function`的属性，默认为`ease-in-out`
+
+```html
+<su-loading-icon timing-function="linear"></su-loading-icon>
+```
+
+### 动画运行时间
+
+`duration`可以指定动画的运行周期时间
+
+```html
+<su-loading-icon duration="2000"></su-loading-icon>
+```
+
+
+### 图标颜色
+
+`color`可以指定动画活动区域的颜色, `inactive-color`可以制定`mode`为`circle`时的暗边颜色
+
+```html
+<su-loading-icon color="red"></su-loading-icon>
+
+<su-loading-icon mode="circle" inactive-color="red"></su-loading-icon>
+```
+
+### 图标尺寸
+
+通过`size`设定尺寸，单位rpx，组件内把`size`值体现为组件的宽和高
+
+```html
+<su-loading-icon size="36"></su-loading-icon>
+```
+
+### 显示或隐藏动画
+
+通过`show`设置为`true`或`false`，来显示或隐藏动画
+
+```html
+<su-loading-icon :show="true"></su-loading-icon>
+```
+
+### 示例源码
+
+[点击可以查看](https://github.com/AaronWangCong/suni/blob/main/src/pages/components/loading-icon/loading-icon.nvue) 右侧演示页面的源码
+
+
+### API
+
+### Props
+
+| 参数 | 说明 | 类型 | 默认值 | 可选值 |
+| ---- | ---- | ---- | ------ | ------ |
+| show | 是否显示动画 | Boolean | true | false |
+| color | 图标颜色 | String | color['su-tips-color'] | - |
+| textColor | 提示文本颜色 | String | color['su-tips-color'] | - |
+| vertical | 图标和文字是否垂直排列 | Boolean | false | true |
+| mode | 模式选择，见上方说明 | String | circle | semicircle |
+| size | 加载图标的大小，单位px | String \| Number | 24 | - |
+| textSize | 加载文字的大小，单位px | String \| Number | 15 | - |
+| text | 文字内容 | String | - | - |
+| timingFunction | 指定`animation-timing-function`的css属性，但只支持`mode`为`circle`或`semicircle`才有效 | String | `ease-in-out` | - |
+| duration | 动画执行周期时间，单位ms | String \| Number | 1200 | - |
+| inactiveColor | 图标的暗边颜色, mode为`circle`模式有效 | String | transparent | - |

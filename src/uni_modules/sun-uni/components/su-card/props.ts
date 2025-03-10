@@ -1,0 +1,192 @@
+import defProps from '../../libs/config/props'
+
+export const propsCard = {
+  /** 
+   * 与屏幕两侧是否留空隙
+   * @default false
+   */
+  full: {
+    type: Boolean,
+    default: () => defProps.card.full
+  },
+  /** 
+   * 标题
+   */
+  title: {
+    type: String,
+    default: () => defProps.card.title
+  },
+  /** 
+   * 标题颜色
+   * @default '#303133'
+   */
+  titleColor: {
+    type: String,
+    default: () => defProps.card.titleColor
+  },
+  /** 
+   * 标题字体大小
+   * @default '15px'
+   */
+  titleSize: {
+    type: [Number, String],
+    default: () => defProps.card.titleSize
+  },
+  /** 副标题 */
+  subTitle: {
+    type: String,
+    default: () => defProps.card.subTitle
+  },
+  /** 
+   * 副标题颜色
+   * @default '#909399'
+   */
+  subTitleColor: {
+    type: String,
+    default: () => defProps.card.subTitleColor
+  },
+  /** 
+   * 副标题字体大小
+   * @default '13px'
+   */
+  subTitleSize: {
+    type: [Number, String],
+    default: () => defProps.card.subTitleSize
+  },
+  /** 
+   * 是否显示外部边框，只对full=false时有效(卡片与边框有空隙时)
+   * @default true
+   */
+  border: {
+    type: Boolean,
+    default: () => defProps.card.border
+  },
+  /** 
+   * 用于标识点击了第几个
+   */
+  index: {
+    type: [Number, String, Object],
+    default: () => defProps.card.index
+  },
+  /** 
+   * 用于隔开上下左右的边距，带单位的写法，如："30px 30px"，"20px 20px 30px 30px"
+   * @default 15px
+   */
+  margin: {
+    type: String,
+    default: () => defProps.card.margin
+  },
+  /** 
+   * card卡片的圆角
+   * @default 8px
+   */
+  borderRadius: {
+    type: [Number, String],
+    default: () => defProps.card.borderRadius
+  },
+  /** 头部自定义样式，对象形式 */
+  headStyle: {
+    type: Object,
+    default: () => defProps.card.headStyle
+  },
+  /** 主体自定义样式，对象形式 */
+  bodyStyle: {
+    type: Object,
+    default: () => defProps.card.bodyStyle
+  },
+  /** 底部自定义样式，对象形式 */
+  footStyle: {
+    type: Object,
+    default: () => defProps.card.footStyle
+  },
+  /**
+   * 头部是否下边框 
+   * @default true
+   */
+  headBorderBottom: {
+    type: Boolean,
+    default: () => defProps.card.headBorderBottom
+  },
+  /** 
+   * 底部是否有上边框
+   * @default true
+   */
+  footBorderTop: {
+    type: Boolean,
+    default: () => defProps.card.footBorderTop
+  },
+  /**
+   * 标题左边的缩略图
+   */
+  thumb: {
+    type: String,
+    default: () => defProps.card.thumb
+  },
+  /**
+   * 缩略图宽高
+   * @default '30px'
+   */
+  thumbWidth: {
+    type: [String, Number],
+    default: () => defProps.card.thumbWidth
+  },
+  /**
+   * 缩略图是否为圆形
+   * @default false
+   */
+  thumbCircle: {
+    type: Boolean,
+    default: () => defProps.card.thumbCircle
+  },
+  /**
+   * 给head，body，foot的内边距
+   * @default '15px'
+   */
+  padding: {
+    type: [String, Number],
+    default: () => defProps.card.padding
+  },
+  /**
+   * head的内边距
+   */
+  paddingHead: {
+    type: [String, Number],
+    default: () => defProps.card.paddingHead
+  },
+  /** body的内边距 */
+  paddingBody: {
+    type: [String, Number],
+    default: () => defProps.card.paddingBody
+  },
+  /** foot的内边距 */
+  paddingFoot: {
+    type: [String, Number],
+    default: () => defProps.card.paddingFoot
+  },
+  /**
+   * 是否显示头部
+   * @default true
+   */
+  showHead: {
+    type: Boolean,
+    default: () => defProps.card.showHead
+  },
+  /**
+   * 是否显示foot部
+   * @default true
+   */
+  showFoot: {
+    type: Boolean,
+    default: () => defProps.card.showFoot
+  },
+  /**
+   * 卡片外围阴影，字符串形式
+   * @default 'none'
+   */
+  boxShadow: {
+    type: String,
+    default: () => defProps.card.boxShadow
+  }
+}
+
+

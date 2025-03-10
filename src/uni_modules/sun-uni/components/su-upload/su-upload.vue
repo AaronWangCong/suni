@@ -1,0 +1,535 @@
+<template>
+  <view class="su-upload" :style="[addStyle(customStyle)]">
+    <view class="su-upload__wrap">
+      <template v-if="previewImage">
+        <view class="su-upload__wrap__preview" v-for="(item, index) in lists" :key="index">
+          <image
+            v-if="item.isImage || (item.type && item.type === 'image')"
+            :src="item.thumb || item.url"
+            :mode="imageMode"
+            class="su-upload__wrap__preview__image"
+            @tap="onPreviewImage(item)"
+            :style="[
+              {
+                width: addUnit(width),
+                height: addUnit(height)
+              }
+            ]"
+          />
+          <view v-else class="su-upload__wrap__preview__other" @tap="onClickPreview($event, item)">
+            <su-icon color="#80CBF9" size="26" :name="item.isVideo || (item.type && item.type === 'video') ? 'movie' : 'folder'"></su-icon>
+            <text class="su-upload__wrap__preview__other__text">
+              {{ item.isVideo || (item.type && item.type === 'video') ? '视频' : '文件' }}
+            </text>
+          </view>
+          <view class="su-upload__status" v-if="item.status === 'uploading' || item.status === 'failed'">
+            <view class="su-upload__status__icon">
+              <su-icon v-if="item.status === 'failed'" name="close-circle" color="#ffffff" size="25" />
+              <su-loading-icon size="22" mode="circle" color="#ffffff" v-else />
+            </view>
+            <text v-if="item.message" class="su-upload__status__message">{{ item.message }}</text>
+          </view>
+          <view class="su-upload__deletable" v-if="item.status !== 'uploading' && (deletable || item.deletable)" @tap.stop="deleteItem(index)">
+            <view class="su-upload__deletable__icon">
+              <su-icon name="close" color="#ffffff" size="10"></su-icon>
+            </view>
+          </view>
+          <view class="su-upload__success" v-if="item.status === 'success'">
+            <!-- #ifdef APP-NVUE -->
+            <image :src="successIcon" class="su-upload__success__icon"></image>
+            <!-- #endif -->
+            <!-- #ifndef APP-NVUE -->
+            <view class="su-upload__success__icon">
+              <su-icon name="checkmark" color="#ffffff" size="12"></su-icon>
+            </view>
+            <!-- #endif -->
+          </view>
+        </view>
+      </template>
+
+      <template v-if="isInCount">
+        <view v-if="$slots.trigger" @tap="chooseFile">
+          <slot name="trigger" />
+        </view>
+        <view v-else-if="!$slots.trigger && ($slots.default || $slots.$default)" @tap="chooseFile">
+          <slot />
+        </view>
+        <view
+          v-else
+          class="su-upload__button"
+          :hover-class="!disabled ? 'su-upload__button--hover' : ''"
+          hover-stay-time="150"
+          @tap="chooseFile"
+          :class="[disabled && 'su-upload__button--disabled']"
+          :style="[
+            {
+              width: addUnit(width),
+              height: addUnit(height)
+            }
+          ]"
+        >
+          <su-icon :name="uploadIcon" size="26" :color="uploadIconColor"></su-icon>
+          <text v-if="uploadText" class="su-upload__button__text">{{ uploadText }}</text>
+        </view>
+      </template>
+    </view>
+  </view>
+</template>
+
+<script>
+import { chooseFile } from './utils'
+import { mixinUpload } from './mixin'
+import { props } from './props'
+import { mpMixin } from '../../libs/mixin/mpMixin'
+import { mixin } from '../../libs/mixin/mixin'
+import { addStyle, addUnit, toast } from '../../libs/function/index'
+import test from '../../libs/function/test'
+/**
+ * upload 上传
+ * @description 该组件用于上传图片场景
+ * @tutorial https://suni.pages.dev/component/upload.html
+ * @property {String}			accept				接受的文件类型, 可选值为all media image file video （默认 'image' ）
+ * @property {String | Array}	capture				图片或视频拾取模式，当accept为image类型时设置capture可选额外camera可以直接调起摄像头（默认 ['album', 'camera'] ）
+ * @property {Boolean}			compressed			当accept为video时生效，是否压缩视频，默认为true（默认 true ）
+ * @property {String}			camera				当accept为video时生效，可选值为back或front（默认 'back' ）
+ * @property {Number}			maxDuration			当accept为video时生效，拍摄视频最长拍摄时间，单位秒（默认 60 ）
+ * @property {String}			uploadIcon			上传区域的图标，只能内置图标（默认 'camera-fill' ）
+ * @property {String}			uploadIconColor		上传区域的图标的字体颜色，只能内置图标（默认 #D3D4D6 ）
+ * @property {Boolean}			useBeforeRead		是否开启文件读取前事件（默认 false ）
+ * @property {Boolean}			previewFullImage	是否显示组件自带的图片预览功能（默认 true ）
+ * @property {String | Number}	maxCount			最大上传数量（默认 52 ）
+ * @property {Boolean}			disabled			是否启用（默认 false ）
+ * @property {String}			imageMode			预览上传的图片时的裁剪模式，和image组件mode属性一致（默认 'aspectFill' ）
+ * @property {String}			name				标识符，可以在回调函数的第二项参数中获取
+ * @property {Array}			sizeType			所选的图片的尺寸, 可选值为original compressed（默认 ['original', 'compressed'] ）
+ * @property {Boolean}			multiple			是否开启图片多选，部分安卓机型不支持 （默认 false ）
+ * @property {Boolean}			deletable			是否展示删除按钮（默认 true ）
+ * @property {String | Number}	maxSize				文件大小限制，单位为byte （默认 Number.MAX_VALUE ）
+ * @property {Array}			fileList			显示已上传的文件列表
+ * @property {String}			uploadText			上传区域的提示文字
+ * @property {String | Number}	width				内部预览图片区域和选择图片按钮的区域宽度（默认 80 ）
+ * @property {String | Number}	height				内部预览图片区域和选择图片按钮的区域高度（默认 80 ）
+ * @property {Object}			customStyle			组件的样式，对象形式
+ * @event {Function} afterRead		读取后的处理函数
+ * @event {Function} beforeRead		读取前的处理函数
+ * @event {Function} oversize		文件超出大小限制
+ * @event {Function} clickPreview	点击预览图片
+ * @event {Function} delete 		删除图片
+ * @example <su-upload :action="action" :fileList="fileList" ></su-upload>
+ */
+export default {
+  name: 'su-upload',
+  mixins: [mpMixin, mixin, mixinUpload, props],
+  data() {
+    return {
+      // #ifdef APP-NVUE
+      successIcon:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAKKADAAQAAAABAAAAKAAAAAB65masAAACP0lEQVRYCc3YXygsURwH8K/dpcWyG3LF5u/6/+dKVylSypuUl6uUPMifKMWL8oKEB1EUT1KeUPdR3uTNUsSLxb2udG/cbvInNuvf2rVnazZ/ZndmZ87snjM1Z+Z3zpzfp9+Z5mEAhlvjRtZgCKs+gnPAOcAkkMOR4jEHfItjDvgRxxSQD8cM0BuOCaAvXNCBQrigAsXgggYUiwsK0B9cwIH+4gIKlIILGFAqLiBAOTjFgXJxigJp4BQD0sIpAqSJow6kjSNAFTnRaHJwLenD6Mud52VQAcrBfTd2oyq+HtGaGGWAcnAVcXWoM3bCZrdi+ncPfaAcXE5UKVpdW/vitGPqqAtn98d0gXJwX7Qp6MmegUYVhvmTIezdmHlxJCjpHRTCFerLkRRu4k0aqdajN3sWOo0BK//msHa+xDuPC/oNFMKRhTtM4xjIX0SCNpXL4+7VIaHuyiWEp2L7ahWLf8fejfPdqPmC3mJicORZUp1CQzm+GiphvljGk+PBvWRbxii+xVTj5M6CiZ/tsDufvaXyxEUDxeLIyvu3m0iOyEFWVAkydcVYdyFrE9tQk9iMq6f/GNlvwt3LjQfh60LUrw9/cFyyMJUW/XkLSNMV4Mi6C5ML+ui4x5ClAX9sB9w0wV6wglJwJCv5fOxcr6EstgbGiEw4XcfUry4cWrcEUW8n+ARKxXEJHhw2WG43UKSvwI/TSZgvl7kh0b3XLZaLEy0QmMgLZAVH7J+ALOE+AVnDvQOyiPMAWcW5gSzjCPAV+78S5WE0GrQAAAAASUVORK5CYII=',
+      // #endif
+      lists: [],
+      isInCount: true
+    }
+  },
+  watch: {
+    // 监听文件列表的变化，重新整理内部数据
+    fileList: {
+      handler() {
+        this.formatFileList()
+      },
+      immediate: true,
+      deep: true
+    },
+    deletable(newVal) {
+      this.formatFileList()
+    },
+    maxCount(newVal) {
+      this.formatFileList()
+    },
+    accept(newVal) {
+      this.formatFileList()
+    }
+  },
+  // #ifdef VUE3
+  emits: ['error', 'beforeRead', 'oversize', 'afterRead', 'delete', 'clickPreview'],
+  // #endif
+  methods: {
+    addUnit,
+    addStyle,
+    formatFileList() {
+      const { fileList = [], maxCount } = this
+      const lists = fileList.map((item) =>
+        Object.assign(Object.assign({}, item), {
+          // 如果item.url为本地选择的blob文件的话，无法判断其为video还是image，此处优先通过accept做判断处理
+          isImage: this.accept === 'image' || test.image(item.url || item.thumb),
+          isVideo: this.accept === 'video' || test.video(item.url || item.thumb),
+          deletable: typeof item.deletable === 'boolean' ? item.deletable : this.deletable
+        })
+      )
+      this.lists = lists
+      this.isInCount = lists.length < maxCount
+    },
+    chooseFile() {
+      const { maxCount, multiple, lists, disabled } = this
+      if (disabled) return
+      // 如果用户传入的是字符串，需要格式化成数组
+      let capture
+      try {
+        capture = test.array(this.capture) ? this.capture : this.capture.split(',')
+      } catch (e) {
+        capture = []
+      }
+      chooseFile(
+        Object.assign(
+          {
+            accept: this.accept,
+            extension: this.extension,
+            multiple: this.multiple,
+            capture: capture,
+            compressed: this.compressed,
+            maxDuration: this.maxDuration,
+            sizeType: this.sizeType,
+            camera: this.camera
+          },
+          {
+            maxCount: maxCount - lists.length
+          }
+        )
+      )
+        .then((res) => {
+          this.onBeforeRead(multiple ? res : res[0])
+        })
+        .catch((error) => {
+          this.$emit('error', error)
+        })
+    },
+    // 文件读取之前
+    onBeforeRead(file) {
+      const { beforeRead, useBeforeRead } = this
+      let res = true
+      // beforeRead是否为一个方法
+      if (test.func(beforeRead)) {
+        // 如果用户定义了此方法，则去执行此方法，并传入读取的文件回调
+        res = beforeRead(file, this.getDetail())
+      }
+      if (useBeforeRead) {
+        res = new Promise((resolve, reject) => {
+          this.$emit(
+            'beforeRead',
+            Object.assign(
+              Object.assign(
+                {
+                  file
+                },
+                this.getDetail()
+              ),
+              {
+                callback: (ok) => {
+                  ok ? resolve() : reject()
+                }
+              }
+            )
+          )
+        })
+      }
+      if (!res) {
+        return
+      }
+      if (test.promise(res)) {
+        res.then((data) => this.onAfterRead(data || file))
+      } else {
+        this.onAfterRead(file)
+      }
+    },
+    getDetail(index) {
+      return {
+        name: this.name,
+        index: index == null ? this.fileList.length : index
+      }
+    },
+    onAfterRead(file) {
+      const { maxSize, afterRead } = this
+      const oversize = Array.isArray(file) ? file.some((item) => item.size > maxSize) : file.size > maxSize
+      if (oversize) {
+        this.$emit(
+          'oversize',
+          Object.assign(
+            {
+              file
+            },
+            this.getDetail()
+          )
+        )
+        return
+      }
+      if (typeof afterRead === 'function') {
+        afterRead(file, this.getDetail())
+      }
+      this.$emit(
+        'afterRead',
+        Object.assign(
+          {
+            file
+          },
+          this.getDetail()
+        )
+      )
+    },
+    deleteItem(index) {
+      this.$emit(
+        'delete',
+        Object.assign(Object.assign({}, this.getDetail(index)), {
+          file: this.fileList[index]
+        })
+      )
+    },
+    // 预览图片
+    onPreviewImage(item) {
+      if (!item.isImage || !this.previewFullImage) return
+      uni.previewImage({
+        // 先filter找出为图片的item，再返回filter结果中的图片url
+        urls: this.lists.filter((item) => this.accept === 'image' || test.image(item.url || item.thumb)).map((item) => item.url || item.thumb),
+        current: item.url || item.thumb,
+        fail() {
+          toast('预览图片失败')
+        }
+      })
+    },
+    onPreviewVideo(event) {
+      if (!this.previewFullImage) return
+      const { index } = event.currentTarget.dataset
+      const { lists } = this.data
+      // #ifdef MP-WEIXIN
+      wx.previewMedia({
+        sources: lists
+          .filter((item) => isVideoFile(item))
+          .map((item) =>
+            Object.assign(Object.assign({}, item), {
+              type: 'video'
+            })
+          ),
+        current: index,
+        fail() {
+          toast('预览视频失败')
+        }
+      })
+      // #endif
+    },
+    onClickPreview(event) {
+      const { index } = event.currentTarget.dataset
+      const item = this.data.lists[index]
+      if (!this.previewFullImage) return
+      switch (item.type) {
+        case 'video':
+          this.onPreviewVideo(event)
+          break
+        default:
+          break
+      }
+      this.$emit('clickPreview', Object.assign(Object.assign({}, item), this.getDetail(index)))
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import '../../libs/css/components.scss';
+$su-upload-preview-border-radius: 2px !default;
+$su-upload-preview-margin: 0 8px 8px 0 !default;
+$su-upload-image-width: 80px !default;
+$su-upload-image-height: $su-upload-image-width;
+$su-upload-other-bgColor: rgb(242, 242, 242) !default;
+$su-upload-other-flex: 1 !default;
+$su-upload-text-font-size: 11px !default;
+$su-upload-text-color: $su-tips-color !default;
+$su-upload-text-margin-top: 2px !default;
+$su-upload-deletable-right: 0 !default;
+$su-upload-deletable-top: 0 !default;
+$su-upload-deletable-bgColor: rgb(55, 55, 55) !default;
+$su-upload-deletable-height: 14px !default;
+$su-upload-deletable-width: $su-upload-deletable-height;
+$su-upload-deletable-boder-bottom-left-radius: 100px !default;
+$su-upload-deletable-zIndex: 3 !default;
+$su-upload-success-bottom: 0 !default;
+$su-upload-success-right: 0 !default;
+$su-upload-success-border-style: solid !default;
+$su-upload-success-border-top-color: transparent !default;
+$su-upload-success-border-left-color: transparent !default;
+$su-upload-success-border-bottom-color: $su-success !default;
+$su-upload-success-border-right-color: $su-upload-success-border-bottom-color;
+$su-upload-success-border-width: 9px !default;
+$su-upload-icon-top: 0px !default;
+$su-upload-icon-right: 0px !default;
+$su-upload-icon-h5-top: 1px !default;
+$su-upload-icon-h5-right: 0 !default;
+$su-upload-icon-width: 16px !default;
+$su-upload-icon-height: $su-upload-icon-width;
+$su-upload-success-icon-bottom: -10px !default;
+$su-upload-success-icon-right: -10px !default;
+$su-upload-status-right: 0 !default;
+$su-upload-status-left: 0 !default;
+$su-upload-status-bottom: 0 !default;
+$su-upload-status-top: 0 !default;
+$su-upload-status-bgColor: rgba(0, 0, 0, 0.5) !default;
+$su-upload-status-icon-Zindex: 1 !default;
+$su-upload-message-font-size: 12px !default;
+$su-upload-message-color: #ffffff !default;
+$su-upload-message-margin-top: 5px !default;
+$su-upload-button-width: 80px !default;
+$su-upload-button-height: $su-upload-button-width;
+$su-upload-button-bgColor: rgb(244, 245, 247) !default;
+$su-upload-button-border-radius: 2px !default;
+$su-upload-botton-margin: 0 8px 8px 0 !default;
+$su-upload-text-font-size: 11px !default;
+$su-upload-text-color: $su-tips-color !default;
+$su-upload-text-margin-top: 2px !default;
+$su-upload-hover-bgColor: rgb(230, 231, 233) !default;
+$su-upload-disabled-opacity: 0.5 !default;
+
+.su-upload {
+  @include flex(column);
+  flex: 1;
+
+  &__wrap {
+    @include flex;
+    flex-wrap: wrap;
+    flex: 1;
+
+    &__preview {
+      border-radius: $su-upload-preview-border-radius;
+      margin: $su-upload-preview-margin;
+      position: relative;
+      overflow: hidden;
+      @include flex;
+
+      &__image {
+        width: $su-upload-image-width;
+        height: $su-upload-image-height;
+      }
+
+      &__other {
+        width: $su-upload-image-width;
+        height: $su-upload-image-height;
+        background-color: $su-upload-other-bgColor;
+        flex: $su-upload-other-flex;
+        @include flex(column);
+        justify-content: center;
+        align-items: center;
+
+        &__text {
+          font-size: $su-upload-text-font-size;
+          color: $su-upload-text-color;
+          margin-top: $su-upload-text-margin-top;
+        }
+      }
+    }
+  }
+
+  &__deletable {
+    position: absolute;
+    top: $su-upload-deletable-top;
+    right: $su-upload-deletable-right;
+    background-color: $su-upload-deletable-bgColor;
+    height: $su-upload-deletable-height;
+    width: $su-upload-deletable-width;
+    @include flex;
+    border-bottom-left-radius: $su-upload-deletable-boder-bottom-left-radius;
+    align-items: center;
+    justify-content: center;
+    z-index: $su-upload-deletable-zIndex;
+
+    &__icon {
+      position: absolute;
+      transform: scale(0.7);
+      top: $su-upload-icon-top;
+      right: $su-upload-icon-right;
+      /* #ifdef H5 */
+      top: $su-upload-icon-h5-top;
+      right: $su-upload-icon-h5-right;
+      /* #endif */
+    }
+  }
+
+  &__success {
+    position: absolute;
+    bottom: $su-upload-success-bottom;
+    right: $su-upload-success-right;
+    @include flex;
+    // 由于weex(nvue)为阿里巴巴的KPI(部门业绩考核)的laji产物，不支持css绘制三角形
+    // 所以在nvue下使用图片，非nvue下使用css实现
+    /* #ifndef APP-NVUE */
+    border-style: $su-upload-success-border-style;
+    border-top-color: $su-upload-success-border-top-color;
+    border-left-color: $su-upload-success-border-left-color;
+    border-bottom-color: $su-upload-success-border-bottom-color;
+    border-right-color: $su-upload-success-border-right-color;
+    border-width: $su-upload-success-border-width;
+    align-items: center;
+    justify-content: center;
+    /* #endif */
+
+    &__icon {
+      /* #ifndef APP-NVUE */
+      position: absolute;
+      transform: scale(0.7);
+      bottom: $su-upload-success-icon-bottom;
+      right: $su-upload-success-icon-right;
+      /* #endif */
+      /* #ifdef APP-NVUE */
+      width: $su-upload-icon-width;
+      height: $su-upload-icon-height;
+      /* #endif */
+    }
+  }
+
+  &__status {
+    position: absolute;
+    top: $su-upload-status-top;
+    bottom: $su-upload-status-bottom;
+    left: $su-upload-status-left;
+    right: $su-upload-status-right;
+    background-color: $su-upload-status-bgColor;
+    @include flex(column);
+    align-items: center;
+    justify-content: center;
+
+    &__icon {
+      position: relative;
+      z-index: $su-upload-status-icon-Zindex;
+    }
+
+    &__message {
+      font-size: $su-upload-message-font-size;
+      color: $su-upload-message-color;
+      margin-top: $su-upload-message-margin-top;
+    }
+  }
+
+  &__button {
+    @include flex(column);
+    align-items: center;
+    justify-content: center;
+    width: $su-upload-button-width;
+    height: $su-upload-button-height;
+    background-color: $su-upload-button-bgColor;
+    border-radius: $su-upload-button-border-radius;
+    margin: $su-upload-botton-margin;
+    /* #ifndef APP-NVUE */
+    box-sizing: border-box;
+    /* #endif */
+
+    &__text {
+      font-size: $su-upload-text-font-size;
+      color: $su-upload-text-color;
+      margin-top: $su-upload-text-margin-top;
+    }
+
+    &--hover {
+      background-color: $su-upload-hover-bgColor;
+    }
+
+    &--disabled {
+      opacity: $su-upload-disabled-opacity;
+    }
+  }
+}
+</style>

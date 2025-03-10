@@ -1,25 +1,8 @@
-import { ref } from 'vue'
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
-const isDark = ref<boolean>(false)
+const pinia = createPinia()
 
-function setDark(dark: boolean) {
-  isDark.value = dark
-  // #ifdef H5
-  process.env.NODE_ENV === 'development' && uni.setStorageSync('isDark', dark)
-  // #endif
-  // #ifndef H5
-  uni.setStorageSync('isDark', dark)
-  // #endif
-}
+pinia.use(piniaPluginPersistedstate)
 
-export function useDark() {
-  // #ifdef H5
-  process.env.NODE_ENV === 'development'
-    ? setDark(Boolean(uni.getStorageSync('isDark')))
-    : setDark(localStorage.getItem('vitepress-theme-appearance') === 'dark')
-  // #endif
-  // #ifndef H5
-  setDark(Boolean(uni.getStorageSync('isDark')))
-  // #endif
-  return { isDark, setDark }
-}
+export default pinia

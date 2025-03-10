@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const src = path.resolve(__dirname, '../src/uni_modules/suni')
+const src = path.resolve(__dirname, '../src/uni_modules/sun-uni')
 const libDir = path.resolve(__dirname, '../lib')
 
 const copyComponents = function (srcPath, tarPath, filter = []) {

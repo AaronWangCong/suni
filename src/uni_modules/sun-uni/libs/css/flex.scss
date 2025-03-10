@@ -1,0 +1,364 @@
+// .su-flex {
+// 	@include vue-flex(row);
+// }
+
+// .su-flex-x {
+// 	@include vue-flex(row);
+// }
+
+// .su-flex-y {
+// 	@include vue-flex(column);
+// }
+
+// .su-flex-xy-center {
+// 	@include vue-flex(row);
+// 	justify-content: center;
+// 	align-items: center;
+// }
+
+// .su-flex-x-center {
+// 	@include vue-flex(row);
+// 	justify-content: center;
+// }
+
+// .su-flex-y-center {
+// 	@include vue-flex(column);
+// 	justify-content: center;
+// }
+
+
+// flex布局
+.su-flex,
+.su-flex-row,
+.su-flex-x,
+.su-flex,
+.su-flex-row,
+.su-flex-x {
+	@include flex;
+}
+
+.su-flex-y,
+.su-flex-column,
+.su-flex-y,
+.su-flex-column {
+	@include flex(column);
+}
+
+.su-flex-x-center,
+.su-flex-x-center {
+	@include flex;
+	justify-content: center;
+}
+
+.su-flex-xy-center,
+.su-flex-xy-center {
+	@include flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.su-flex-y-center,
+.su-flex-y-center {
+	@include flex;
+	align-items: center;
+}
+
+.su-flex-x-left,
+.su-flex-x-left {
+	@include flex;
+}
+
+.su-flex-x-reverse,
+.su-flex-row-reverse,
+.su-flex-x-reverse,
+.su-flex-row-reverse  {
+	flex-direction: row-reverse;
+}
+
+.su-flex-y-reverse,
+.su-flex-column-reverse,
+.su-flex-y-reverse,
+.su-flex-column-reverse {
+	flex-direction: column-reverse;
+}
+
+/* #ifndef APP-NVUE */
+// 此处为vue版本的简写，因为nvue不支持同时作用于两个类名的样式写法
+// nvue下只能写成class="su-flex-x su-flex-x-reverse的形式"
+.su-flex.su-flex-reverse,
+.su-flex-row.su-flex-reverse,
+.su-flex-x.su-flex-reverse,
+.su-flex.su-flex-reverse,
+.su-flex-row.su-flex-reverse,
+.su-flex-x.su-flex-reverse {
+	flex-direction: row-reverse;
+}
+
+.su-flex-column.su-flex-reverse,
+.su-flex-y.su-flex-reverse,
+.su-flex-column.su-flex-reverse,
+.su-flex-y.su-flex-reverse {
+	flex-direction: column-reverse;
+}
+
+// 自动伸缩
+.su-flex-fill,
+.su-flex-fillp {
+	flex: 1 1 auto;
+}
+
+// 边界自动伸缩
+.su-margin-top-auto,
+.su-m-t-auto,
+.su-margin-top-auto,
+.su-m-t-auto {
+	margin-top: auto !important;
+}
+
+.su-margin-right-auto,
+.su-m-r-auto,
+.su-margin-right-auto,
+.su-m-r-auto {
+	margin-right: auto !important;
+}
+
+.su-margin-bottom-auto,
+.su-m-b-auto,
+.su-margin-bottom-auto,
+.su-m-b-auto {
+	margin-bottom: auto !important;
+}
+
+.su-margin-left-auto,
+.su-m-l-auto,
+.su-margin-left-auto,
+.su-m-l-auto {
+	margin-left: auto !important;
+}
+
+.su-margin-center-auto,
+.su-m-c-auto,
+.su-margin-center-auto,
+.su-m-c-auto {
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+.su-margin-middle-auto,
+.su-m-m-auto,
+.su-margin-middle-auto,
+.su-m-m-auto {
+	margin-top: auto !important;
+	margin-bottom: auto !important;
+}
+/* #endif */
+
+// 换行
+.su-flex-wrap,
+.su-flex-wrap {
+	flex-wrap: wrap;
+}
+
+// 反向换行
+.su-flex-wrap-reverse,
+.su-flex-wrap-reverse {
+	flex-wrap: wrap-reverse;
+}
+
+// 主轴起点对齐
+.su-flex-start,
+.su-flex-start {
+	justify-content: flex-start;
+}
+
+// 主轴中间对齐
+.su-flex-center,
+.su-flex-center {
+	justify-content: center;
+}
+
+// 主轴终点对齐
+.su-flex-end,
+.su-flex-end {
+	justify-content: flex-end;
+}
+
+// 主轴等比间距
+.su-flex-between,
+.su-flex-between {
+	justify-content: space-between;
+}
+
+// 主轴均分间距
+.su-flex-around,
+.su-flex-around {
+	justify-content: space-around;
+}
+
+// 交叉轴起点对齐
+.su-flex-items-start,
+.su-flex-items-start {
+	align-items: flex-start;
+}
+
+// 交叉轴中间对齐
+.su-flex-items-center,
+.su-flex-items-center {
+	align-items: center;
+}
+
+// 交叉轴终点对齐
+.su-flex-items-end,
+.su-flex-items-end {
+	align-items: flex-end;
+}
+
+// 交叉轴第一行文字基线对齐
+.su-flex-items-baseline,
+.su-flex-items-baseline {
+	/* #ifndef APP-NVUE */
+	align-items: baseline;
+	/* #endif */
+}
+
+// 交叉轴方向拉伸对齐
+.su-flex-items-stretch,
+.su-flex-items-stretch {
+	align-items: stretch;
+}
+
+
+// 以下属于项目(子元素)的类
+
+// 子元素交叉轴起点对齐
+/* #ifndef APP-NVUE */
+.su-flex-self-start,
+.su-flex-self-start {
+	align-self: flex-start;
+}
+
+// 子元素交叉轴居中对齐
+.su-flex-self-center,
+.su-flex-self-center {
+	align-self: center;
+}
+
+// 子元素交叉轴终点对齐
+.su-flex-self-end,
+.su-flex-self-end {
+	align-self: flex-end;
+}
+
+// 子元素交叉轴第一行文字基线对齐
+.su-flex-self-baseline,
+.su-flex-self-baseline {
+	align-self: baseline;
+}
+
+// 子元素交叉轴方向拉伸对齐
+.su-flex-self-stretch,
+.su-flex-self-stretch {
+	align-self: stretch;
+}
+/* #endif */
+// 多轴交叉时的对齐方式
+
+// 起点对齐
+/* #ifndef APP-NVUE */
+.su-flex-content-start,
+.su-flex-content-start {
+	align-content: flex-start;
+}
+
+// 居中对齐
+.su-flex-content-center,
+.su-flex-content-center {
+	align-content: center;
+}
+
+// 终点对齐
+.su-flex-content-end,
+.su-flex-content-end {
+	align-content: flex-end;
+}
+
+// 两端对齐
+.su-flex-content-between,
+.su-flex-content-between {
+	align-content: space-between;
+}
+
+// 均分间距
+.su-flex-content-around,
+.su-flex-content-around {
+	align-content: space-around;
+}
+
+// 全部居中对齐
+.su-flex-middle,
+.su-flex-middle {
+	justify-content: center;
+	align-items: center;
+	align-self: center;
+	align-content: center;
+}
+
+// 是否可以放大
+.su-flex-grow,
+.su-flex-grow {
+	flex-grow: 1;
+}
+
+// 是否可以缩小
+.su-flex-shrink,
+.su-flex-shrink {
+	flex-shrink: 1;
+}
+
+/* #endif */
+
+// 定义内外边距，历遍1-80
+@for $i from 0 through 80 {
+	// 只要双数和能被5除尽的数
+	@if $i % 2 == 0 or $i % 5 == 0 {
+		// 得出：su-margin-30或者u-m-30
+		.su-margin-#{$i}, .su-m-#{$i},
+		.su-margin-#{$i}, .su-m-#{$i} {
+			margin: $i + rpx!important;
+		}
+
+		// 得出：su-padding-30或者u-p-30
+		.su-padding-#{$i}, .su-p-#{$i},
+		.su-padding-#{$i}, .su-p-#{$i} {
+			padding: $i + rpx!important;
+		}
+
+		@each $short, $long in l left, t top, r right, b bottom {
+			// 缩写版，结果如： su-m-l-30
+			// 定义外边距
+			.su-m-#{$short}-#{$i},
+			.su-m-#{$short}-#{$i} {
+				margin-#{$long}: $i + rpx!important;
+			}
+
+			// 定义内边距
+			.su-p-#{$short}-#{$i},
+			.su-p-#{$short}-#{$i} {
+				padding-#{$long}: $i + rpx!important;
+			}
+
+			// 完整版，结果如：su-margin-left-30
+			// 定义外边距
+			.su-margin-#{$long}-#{$i},
+			.su-margin-#{$long}-#{$i} {
+				margin-#{$long}: $i + rpx!important;
+			}
+
+			// 定义内边距
+			.su-padding-#{$long}-#{$i},
+			.su-padding-#{$long}-#{$i} {
+				padding-#{$long}: $i + rpx!important;
+			}
+		}
+	}
+}

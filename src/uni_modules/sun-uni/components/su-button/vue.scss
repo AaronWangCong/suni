@@ -1,0 +1,81 @@
+// nvue下hover-class无效
+$su-button-before-top:50% !default;
+$su-button-before-left:50% !default;
+$su-button-before-width:100% !default;
+$su-button-before-height:100% !default;
+$su-button-before-transform:translate(-50%, -50%) !default;
+$su-button-before-opacity:0 !default;
+$su-button-before-background-color:#000 !default;
+$su-button-before-border-color:#000 !default;
+$su-button-active-before-opacity:.15 !default;
+$su-button-icon-margin-left:4px !default;
+$su-button-plain-su-button-info-color:$su-info;
+$su-button-plain-su-button-success-color:$su-success;
+$su-button-plain-su-button-error-color:$su-error;
+$su-button-plain-su-button-warning-color:$su-error;
+
+.su-button {
+	width: 100%;
+	white-space: nowrap;
+
+	&__text {
+		white-space: nowrap;
+		line-height: 1;
+	}
+
+	&:before {
+		position: absolute;
+		top:$su-button-before-top;
+		left:$su-button-before-left;
+		width:$su-button-before-width;
+		height:$su-button-before-height;
+		border: inherit;
+		border-radius: inherit;
+		transform:$su-button-before-transform;
+		opacity:$su-button-before-opacity;
+		content: " ";
+		background-color:$su-button-before-background-color;
+		border-color:$su-button-before-border-color;
+	}
+
+	&--active {
+		&:before {
+			opacity: .15
+		}
+	}
+
+	&__icon+&__text:not(:empty),
+	&__loading-text {
+		margin-left:$su-button-icon-margin-left;
+	}
+
+	&--plain {
+		&.su-button--primary {
+			color: $su-primary;
+		}
+	}
+
+	&--plain {
+		&.su-button--info {
+			color:$su-button-plain-su-button-info-color;
+		}
+	}
+
+	&--plain {
+		&.su-button--success {
+			color:$su-button-plain-su-button-success-color;
+		}
+	}
+
+	&--plain {
+		&.su-button--error {
+			color:$su-button-plain-su-button-error-color;
+		}
+	}
+
+	&--plain {
+		&.su-button--warning {
+			color:$su-button-plain-su-button-warning-color;
+		}
+	}
+}

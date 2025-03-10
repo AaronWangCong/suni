@@ -1,0 +1,113 @@
+/**
+ * vue版本动画内置的动画模式有如下：
+ * fade：淡入
+ * zoom：缩放
+ * fade-zoom：缩放淡入
+ * fade-up：上滑淡入
+ * fade-down：下滑淡入
+ * fade-left：左滑淡入
+ * fade-right：右滑淡入
+ * slide-up：上滑进入
+ * slide-down：下滑进入
+ * slide-left：左滑进入
+ * slide-right：右滑进入
+ */
+
+$su-zoom-scale: scale(0.95);
+
+.su-fade-enter-active,
+.su-fade-leave-active {
+	transition-property: opacity;
+}
+
+.su-fade-enter,
+.su-fade-leave-to {
+	opacity: 0
+}
+
+.su-fade-zoom-enter,
+.su-fade-zoom-leave-to {
+	transform: $su-zoom-scale;
+	opacity: 0;
+}
+
+.su-fade-zoom-enter-active,
+.su-fade-zoom-leave-active {
+	transition-property: transform, opacity;
+}
+
+.su-fade-down-enter-active,
+.su-fade-down-leave-active,
+.su-fade-left-enter-active,
+.su-fade-left-leave-active,
+.su-fade-right-enter-active,
+.su-fade-right-leave-active,
+.su-fade-su-enter-active,
+.su-fade-su-leave-active {
+	transition-property: opacity, transform;
+}
+
+.su-fade-su-enter,
+.su-fade-su-leave-to {
+	transform: translate3d(0, 100%, 0);
+	opacity: 0
+}
+
+.su-fade-down-enter,
+.su-fade-down-leave-to {
+	transform: translate3d(0, -100%, 0);
+	opacity: 0
+}
+
+.su-fade-left-enter,
+.su-fade-left-leave-to {
+	transform: translate3d(-100%, 0, 0);
+	opacity: 0
+}
+
+.su-fade-right-enter,
+.su-fade-right-leave-to {
+	transform: translate3d(100%, 0, 0);
+	opacity: 0
+}
+
+.su-slide-down-enter-active,
+.su-slide-down-leave-active,
+.su-slide-left-enter-active,
+.su-slide-left-leave-active,
+.su-slide-right-enter-active,
+.su-slide-right-leave-active,
+.su-slide-su-enter-active,
+.su-slide-su-leave-active {
+	transition-property: transform;
+}
+
+.su-slide-su-enter,
+.su-slide-su-leave-to {
+	transform: translate3d(0, 100%, 0)
+}
+
+.su-slide-down-enter,
+.su-slide-down-leave-to {
+	transform: translate3d(0, -100%, 0)
+}
+
+.su-slide-left-enter,
+.su-slide-left-leave-to {
+	transform: translate3d(-100%, 0, 0)
+}
+
+.su-slide-right-enter,
+.su-slide-right-leave-to {
+	transform: translate3d(100%, 0, 0)
+}
+
+.su-zoom-enter-active,
+.su-zoom-leave-active {
+	transition-property: transform
+}
+
+.su-zoom-enter,
+.su-zoom-leave-to {
+	transform: $su-zoom-scale
+}

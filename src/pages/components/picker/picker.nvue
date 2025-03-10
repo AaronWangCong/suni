@@ -1,0 +1,157 @@
+<template>
+	<view class="su-page" ref="page">
+		<up-navbar title="选择器" @leftClick="navigateBack" safeAreaInsetTop fixed placeholder></up-navbar>
+		<up-cell-group>
+			<up-cell @click="showPicker(i)" :title="item.title" v-for="(item, i) in list" :key="i" isLink>
+				<template #icon>
+					<image class="su-cell-icon" :src="item.iconUrl" mode="widthFix"></image>
+				</template>
+			</up-cell>
+		</up-cell-group>
+		<up-picker :show="show.show1" :columns="columns1" @change="change" @cancel="cancel" @confirm="confirm" toolbarRightSlot>
+			<template #toolbar-right>
+				<view style="padding-right: 10px">右侧</view>
+			</template>
+			<template #toolbar-bottom></template>
+		</up-picker>
+		<up-picker :show="show.show2" :columns="columns2" :defaultIndex="[1]" @cancel="cancel" @confirm="confirm" @change="change"></up-picker>
+		<up-picker :show="show.show3" :columns="columns3" ref="uPicker3" @cancel="cancel" @confirm="confirm" @change="changeHandler1"></up-picker>
+		<up-picker
+			:show="show.show4"
+			:columns="columns4"
+			@cancel="cancel"
+			@confirm="confirm"
+			:loading="loading"
+			@change="changeHandler2"
+			ref="uPicker4"
+		></up-picker>
+		<up-picker :show="show.show5" :columns="columns5" title="标题太长就会显示省略号" @cancel="cancel" @confirm="confirm" @change="change"></up-picker>
+		<up-picker v-model:show="show.show6" :columns="columns6" closeOnClickOverlay @change="change"></up-picker>
+		{{ col }}
+	</view>
+</template>
+
+<script lang="ts" setup>
+import { reactive, ref, unref, nextTick } from 'vue'
+
+const index = ref(0)
+const loading = ref(false)
+const col = ref([])
+const columnData = [
+	['深圳', '厦门', '上海', '拉萨'],
+	['得州', '华盛顿', '纽约', '阿拉斯加']
+]
+const columns1 = [['中国', '美国', '日本']]
+const columns2 = columns1
+const columns3 = [
+	['中国', '美国'],
+	['深圳', '厦门', '上海', '拉萨']
+]
+const columns4 = columns3
+const columns5 = columns1
+const columns6 = columns1
+const columns7 = [
+	[
+		{
+			label: '苹果',
+			value: 1
+		},
+		{
+			label: '橘子',
+			value: 2
+		},
+		{
+			label: '香蕉',
+			value: 3
+		}
+	]
+]
+
+const show = reactive({
+	show1: false,
+	show2: false,
+	show3: false,
+	show4: false,
+	show5: false,
+	show6: false
+})
+
+const list = [
+	{
+		title: '基础使用',
+		iconUrl: 'https://cdn.uviewui.com/uview/demo/picker/2.png'
+	},
+	{
+		title: '设置默认项',
+		iconUrl: 'https://cdn.uviewui.com/uview/demo/picker/5.png'
+	},
+	{
+		title: '多列联动',
+		iconUrl: 'https://cdn.uviewui.com/uview/demo/picker/1.png'
+	},
+	{
+		title: '加载中状态(切换第一列)',
+		iconUrl: 'https://cdn.uviewui.com/uview/demo/picker/3.png'
+	},
+	{
+		title: '设置标题',
+		iconUrl: 'https://cdn.uviewui.com/uview/demo/picker/4.png'
+	},
+	{
+		title: '允许点击遮罩关闭',
+		iconUrl: 'https://cdn.uviewui.com/uview/demo/picker/6.png'
+	}
+]
+
+const uPicker3 = ref()
+const uPicker4 = ref()
+
+function changeHandler1(e) {
+	change(e)
+	const { columnIndex, value, values, index } = e
+	if (columnIndex === 0) {
+		unref(uPicker3).setColumnValues(1, columnData[index])
+		col.value = unref(unref(uPicker3)).getColumnValues(1)
+	}
+}
+function changeHandler2(e) {
+	change(e)
+	const { columnIndex, value, values, index } = e
+	if (columnIndex === 0) {
+		loading.value = true
+		uni.$u.sleep(1500).then(() => {
+			unref(uPicker4).setColumnValues(1, columnData[index])
+			loading.value = false
+		})
+	}
+}
+function navigateBack() {
+	uni.navigateBack()
+}
+function change(e) {
+	console.log('change', e)
+}
+function showPicker(idx) {
+	index.value = idx + 1
+	show[`show${idx + 1}`] = true
+}
+function close() {
+	// console.log('close');
+	show[`show${unref(index)}`] = false
+}
+function confirm(e) {
+	// console.log('confirm', e);
+	show[`show${unref(index)}`] = false
+}
+
+function cancel() {
+	// console.log('cancel');
+	show[`show${unref(index)}`] = false
+}
+</script>
+
+<style lang="scss">
+.su-page {
+	padding: 0;
+}
+</style>

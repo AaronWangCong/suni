@@ -1,0 +1,143 @@
+## Switch 开关选择器 <to-api/>
+
+<demo-model url="/pages/components/switch/index"></demo-model>
+
+选择开关一般用于只有两个选择，且只能选其一的场景。
+
+### 平台差异说明
+
+| App(vue) | App(nvue) | H5  | 微信小程序 |
+| :------: | :-------: | :-: | :--------: |
+|    √     |     √     |  √  |     √      |
+
+### 基本使用
+
+通过`v-model`绑定一个`布尔值`变量，这个变量是双向绑定的，当用户开或关选择器的时候，在父组件的该值也会相应的变为`true`或者`false`，也就是说，
+您不用监听`change`事件，也能知道选择器当前处于**开**或者**关**的状态。
+
+我们为其提供了`加载中 禁用 自定义尺寸 自定义颜色 自定义样式 异步控制`等六种能力，并在以下案例中为您展示
+
+```html
+<template>
+  <su-switch v-model="value" @change="change"></su-switch>
+</template>
+
+<script setup>
+  function change(status) {
+    // console.log(status);
+  }
+</script>
+```
+
+### 加载中
+
+通过设置`loading`变量为`true`，可以让`switch`处于加载中的状态，这时`switch`是不可操作的，您可以通过`:loading='loading'`以动态设置加载状态
+
+```html
+<su-switch v-model="checked" :loading="true"></su-switch>
+
+<!-- 等价于 -->
+<su-switch v-model="checked" loading></su-switch>
+```
+
+### 禁用switch
+
+设置`disabled`为`true`，即可禁用某个组件，让用户无法点击，禁用分为两种状态：
+
+- 一是关闭情况下的禁用，这时只显示一个白色的区域。
+- 二是打开后再禁用，这时会在原有的颜色上加一个`opacity`透明度，但此时依然是不可操作的。
+
+```html
+<su-switch v-model="checked" :disabled="true"></su-switch>
+```
+
+### 自定义尺寸
+
+设置`size`属性，可以让您自定义`switch`的尺寸，单位为`px`
+
+```html
+<su-switch v-model="value3" size="28"></su-switch>
+<su-switch v-model="value4" size="20"></su-switch>
+```
+
+### 自定义颜色
+
+设置`activeColor`属性，可以让您自定义switch的颜色，支持多种设置方式，如：`activeColor="#f56c6c"` `activeColor="red"` `activeColor="rgb(0,0,0)"`
+
+```html
+<su-switch v-model="value" activeColor="#f56c6c" loading></su-switch>
+<su-switch v-model="value1" activeColor="#5ac725" loading></su-switch>
+```
+
+### 自定义值
+
+可以通过设置`active-value`和`inactive-value`来控制选择器打开或者关闭时，通过`change`事件发出的回调值。
+
+```html
+<su-switch v-model="checked" active-value="1" inactive-value="0"></su-switch>
+```
+
+### 异步控制
+
+异步控制场景，一般发生在用户打开或者关闭选择器时，需要本地或者向后端请求判断，是否允许用户打开或者关闭的场景。
+
+同时您也可以组合使用，例如根据接口结果添加`disabled`，`loading`属性等
+
+:::warning 注意
+添加`asyncChange`属性来支持异步控制操作，否则您将先操作`v-model`绑定的值，并失去控制效果
+:::
+
+```html
+<template>
+  <su-switch v-model="value13" asyncChange @change="asyncChange"></su-switch>
+</template>
+
+<script setup>
+  import { ref } from 'vue'
+
+  const value13 = ref(true)
+
+  const asyncChange = (e) => {
+    uni.showModal({
+      content: e ? '确定要打开吗' : '确定要关闭吗',
+      success: (res) => {
+        if (res.confirm) {
+          value13.value = e
+        }
+      }
+    })
+  }
+</script>
+```
+
+### 示例源码
+
+[点击可以查看](https://github.com/AaronWangCong/suni/blob/main/src/pages/components/switch/switch.nvue) 右侧演示页面的源码
+
+### API
+
+### Switch Props
+
+注意：需要给`switch`组件通过`v-model`绑定一个布尔值，来初始化`switch`的状态，随后该值被双向绑定，
+当用打开选择器时，该值在`switch`组件内部被修改为`true`，并反映到父组件，否则为`false`，换言之，您无需监听`switch`的`change`事件，也能
+知道某一个`switch`是否被选中的状态
+
+| 参数           | 说明                                       | 类型                        | 默认值  | 可选值 |
+| -------------- | ------------------------------------------ | --------------------------- | ------- | ------ |
+| loading        | 是否处于加载中                             | Boolean                     | false   | true   |
+| disabled       | 是否禁用                                   | Boolean                     | false   | true   |
+| size           | 开关尺寸，单位rpx                          | String \| Number            | 50      | -      |
+| active-color   | 打开时的背景色                             | String                      | #2979ff | -      |
+| inactive-color | 关闭时的背景色                             | String                      | #ffffff | -      |
+| active-value   | 打开选择器时通过change事件发出的值         | Boolean \| Number \| String | true    | -      |
+| inactive-value | 关闭选择器时通过change事件发出的值         | Boolean \| Number \| String | false   | -      |
+| modelValue     | 通过v-model双向绑定的值                    | Boolean \| Number \| String | false   | -      |
+| asyncChange    | 是否开启异步变更，开启后需要手动控制输入值 | Boolean                     | false   | true   |
+| space          | 圆点与外边框的距离                         | String \| Number            | 0       | -      |
+
+### Switch Event
+
+| 事件名 | 说明                       | 回调参数                                                    |
+| :----- | :------------------------- | :---------------------------------------------------------- |
+| change | 在`switch`打开或关闭时触发 | value：打开时为`active-value`值，关闭时为`inactive-value`值 |
+| update:modelValue | 在`switch`打开或关闭时触发（没开启异步） | value：打开时为`active-value`值，关闭时为`inactive-value`值 |

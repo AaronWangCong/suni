@@ -38,8 +38,40 @@
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "i18n-ally.localesPaths": [
-    "src/uni_modules/suni/locale",
-    "src/uni_modules/suni/locale/lang"
+    "src/uni_modules/sun-uni/locale",
+    "src/uni_modules/sun-uni/locale/lang"
   ],
-  "common-intellisense.ui": []
+  "common-intellisense.ui": [],
+  // 函数注释
+  "fileheader.cursorMode": {
+    "description": "", // 函数注释生成之后，光标移动到这里
+    "param": "", // param 开启函数参数自动提取 需要将光标放在函数行或者函数上方的空白行
+    "return": ""
+  },
+  // 函数注释
+  "fileheader.configObj": {
+    "autoAdd": false // 不填加头部注释
+  },
+  // Enable file nesting
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "vite.config.*": "pages.config.*, manifest.config.*, uno.config.*, volar.config.*, *.env, .env.*"
+  },
+  "marscode.chatLanguage": "cn",
+  "files.associations": {
+    // "*.nvue": "vue",
+    "*.wxs": "javascript",
+    "*.wxss": "css",
+    "pages.json": "jsonc",
+    "manifest.json": "jsonc",
+  },
+  // "filewatcher.commands": [
+  //   {
+  //     "match": "\\.vue$", //匹配vue文件  
+  //     "isAsync": true, //异步处理  
+  //     "cmd": "copy ${file} ${fileDirname}\\${fileBasenameNoExt}.nvue", //复制覆盖替换文件  
+  //     "event": "onFileChange", //保存时触发 
+  //   }
+  // ],
+  // "filewatcher.autoClearConsole": true,
 }

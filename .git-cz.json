@@ -28,7 +28,7 @@
     },
     "fix": {
       "description": "Bug Fixes | Bug 修复",
-      "emoji": "🐛",
+      "emoji": "🐞",
       "value": "fix"
     },
     "perf": {

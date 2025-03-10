@@ -1,113 +1,158 @@
-<ClientOnly>
-  <frame/>
-</ClientOnly>
+## Popup 弹出层 <to-api/>
 
-#  Popup 弹出层
+<demo-model url="/pages/components/popup/index"></demo-model>
 
+弹出层容器，用于展示弹窗、信息提示等内容，支持上、下、左、右和中部弹出。组件只提供容器，内部内容由用户自定义
 
-## 基本用法
+### 平台差异说明
 
-`v-model` 为绑定值，表示是否展示弹出层。
+| App(vue) | App(nvue) | H5  | 微信小程序 |
+| :------: | :-------: | :-: | :--------: |
+|    √     |     √     |  √  |     √      |
 
-```html
-<su-popup v-model="show" custom-style="padding: 30px 40px;" @close="handleClose">内容</su-popup>
-```
+### 基本使用
 
-## 弹出位置
-
-设置 `position`，默认为 'center'，可选值 'top', 'right', 'bottom', 'left'。
+- 弹出层的内容通过`slot`传入，由用户自定义
+- 通过`v-model/show`绑定一个布尔值的变量控制弹出层的打开和收起
 
 ```html
-<su-popup v-model="show" position="top" custom-style="height: 200px;" @close="handleClose"></su-popup>
+<template>
+  <view>
+    <su-popup :show="show" @close="close" @open="open">
+      <view>
+        <text>出淤泥而不染，濯清涟而不妖</text>
+      </view>
+    </su-popup>
+    <su-popup v-model:show="show">
+      <view>
+        <text>出淤泥而不染，濯清涟而不妖</text>
+      </view>
+    </su-popup>
+    <su-button @click="show = true">打开</su-button>
+  </view>
+</template>
+
+<script setup>
+  import { ref } from 'vue'
+
+  // 创建响应式数据
+  const show = ref(false)
+
+  // 定义方法
+  function open() {
+    // 打开逻辑，比如设置 show 为 true
+    show.value = true
+    // console.log('open');
+  }
+
+  function close() {
+    // 关闭逻辑，设置 show 为 false
+    show.value = false
+    // console.log('close');
+  }
+</script>
 ```
 
-## 关闭按钮
+### 设置弹出层的方向
 
-设置 `closable` 属性。
+- 可以通过`mode`参数设置，可以设置为`left`、`top`、`right`、`bottom`、`center`
 
 ```html
-<su-popup v-model="show" position="bottom" closable custom-style="height: 200px;" @close="handleClose"></su-popup>
+<template>
+  <su-popup :show="show" mode="top" @close="close" @open="open">
+    <view>
+      <text>人生若只如初见，何事秋风悲画扇</text>
+    </view>
+  </su-popup>
+</template>
+
+<script setup>
+  import { ref } from 'vue'
+
+  // 创建响应式数据
+  const show = ref(false)
+
+  // 定义方法
+  function open() {
+    // 打开逻辑，比如设置 show 为 true
+    show.value = true
+    // console.log('open');
+  }
+
+  function close() {
+    // 关闭逻辑，设置 show 为 false
+    show.value = false
+    // console.log('close');
+  }
+</script>
 ```
 
-## 禁用遮罩点击
+### 设置弹出层的圆角
 
-通过设置 `close-on-click-modal` 属性为 `false`，你可以禁用用户点击遮罩层时关闭弹出层的功能。
+可以给`round`设置为圆角值(仅对mode = top | bottom | center有效)。
 
 ```html
-<su-popup v-model="show7" position="bottom" :close-on-click-modal="false" closable custom-style="height: 200px;" @close="handleClose7"></su-popup>
+<template>
+  <su-popup :show="show" :round="10" mode="top" @close="close" @open="open">
+    <view>
+      <text>人生若只如初见，何事秋风悲画扇</text>
+    </view>
+  </su-popup>
+</template>
+
+<script setup>
+  import { ref } from 'vue'
+
+  // 创建响应式数据
+  const show = ref(false)
+
+  // 定义方法
+  function open() {
+    // 打开逻辑，比如设置 show 为 true
+    show.value = true
+    // console.log('open');
+  }
+
+  function close() {
+    // 关闭逻辑，设置 show 为 false
+    show.value = false
+    // console.log('close');
+  }
+</script>
 ```
 
+### 示例源码
 
-## 禁用遮罩
+[点击可以查看](https://github.com/AaronWangCong/suni/blob/main/src/pages/components/popup/popup.nvue) 右侧演示页面的源码
 
-通过设置 `modal` 属性为 `false`，你可以禁用遮罩层，使用户可以与底层内容进行交互。
+### API
 
-```html
-<su-popup v-model="show8" position="bottom" :modal="false" closable custom-style="height: 200px;" @close="handleClose8"></su-popup>
-```
+### Props
 
+注意：props中没有控制弹窗打开与收起的参数，因为这是通过v-model绑定变量实现的，见上方说明。
 
-## 开启底部安全区
+| 参数                   | 说明                                                                                                       | 类型             | 默认值    | 可选值                                |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------- | --------- | ------------------------------------- |
+| show                   | 是否展示弹窗                                                                                               | Boolean          | false     | true                                  |
+| overlay                | 是否显示遮罩                                                                                               | Boolean          | true      | false                                 |
+| mode                   | 弹出方向                                                                                                   | String           | bottom    | top / right / bottom / center         |
+| duration               | 遮罩打开或收起的动画过渡时间，单位ms                                                                       | String \| Number | 300       | -                                     |
+| closeable              | 是否显示关闭图标                                                                                           | Boolean          | false     | true                                  |
+| overlayStyle           | 遮罩自定义样式，一般用于修改遮罩颜色，如：`{background: 'rgba(3, 100, 219, 0.5)'}`                         | Object \| String | -         | -                                     |
+| overlayOpacity         | 遮罩透明度，`0-1`之间，勿与`overlayStyle`共用                                                              | Number \| String | 0.5       | -                                     |
+| closeOnClickOverlay    | 点击遮罩是否关闭弹窗（注意：关闭事件需要自行处理，只会在开启closeOnClickOverlay后点击遮罩层执行close回调） | Boolean          | true      | false                                 |
+| zIndex                 | 弹出层的`z-index`值                                                                                        | Number \| String | 10075     | -                                     |
+| safe-area-inset-bottom | 是否开启[底部安全区适配](/component/safeAreaInset.html#关于uview某些组件safe-area-inset参数的说明)         | Boolean          | true      | false                                 |
+| safeAreaInsetTop       | 是否留出[顶部安全区适配](/component/safeAreaInset.html#关于uview某些组件safe-area-inset参数的说明)         | Boolean          | false     | true                                  |
+| closeIconPos           | 自定义关闭图标位置，top-left为左上角，top-right为右上角，bottom-left为左下角，bottom-right为右下角         | String           | top-right | top-left / bottom-left / bottom-right |
+| round                  | 设置圆角值，仅对`mode = top \| bottom \| cener`有效                                                        | Number \| String | 0         | -                                     |
+| zoom                   | 当mode=center时 是否开启缩放                                                                               | Boolean          | true      | false                                 |
+| bgColor                | 背景色，一般用于特殊弹窗内容场景，设置为`transparent`可去除默认的白色背景                                  | String           | -         | -                                     |
+| customStyle            | 用户自定义样式                                                                                             | Object           | -         | -                                     |
 
-通过设置 `safe-area-inset-bottom` 属性为 `true`，你可以确保弹出层在底部显示时不会被底部安全区域遮挡。
+### Event
 
-```html
-<su-popup v-model="show9" position="bottom" :safe-area-inset-bottom="true" custom-style="height: 200px;" @close="handleClose9"></su-popup>
-```
-
-## 禁止滚动穿透
-
-使用组件时，会发现内容部分滚动到底时，继续划动会导致底层页面的滚动，这就是滚动穿透。
-
-目前，组件可以通过 `lock-scroll` 属性处理部分滚动穿透问题。 但由于小程序和APP平台自身原因，弹窗内容区域仍会出现滚动穿透。 不过，我们为开发者提供了一个推荐方案以完整解决滚动穿透：
-
-可以使用 [page-meta](https://uniapp.dcloud.net.cn/component/page-meta#page-meta) 组件动态修改 `page-meta` 的 `overflow` 属性。
-```html
-<!-- page-meta 只能是页面内的第一个节点 -->
-<page-meta :page-style="`overflow:${show10 ? 'hidden' : 'visible'};`"></page-meta>
-
-<su-popup v-model="show10" lock-scroll position="bottom" :safe-area-inset-bottom="true" custom-style="height: 200px;" @close="handleClose10"></su-popup>
-```
-
-:::tip 提示
-h5 滚动穿透不需要处理，组件已默认开启 `lock-scroll`。
-:::
-### H5平台
-
-
-## Attributes
-
-| 参数 | 说明 | 类型 | 可选值 | 默认值 | 最低版本 |
-|-----|-----|------|-------|-------|---------|
-| v-model | 弹出层是否显示 | boolean | - | - | - |
-| position | 弹出位置 | string | center / top / right / bottom / left | center | - |
-| closable | 关闭按钮 | boolean | - | false | - |
-| close-on-click-modal | 点击遮罩是否关闭 | boolean | - | true | - |
-| duration | 动画持续时间 | number / boolean | - | 300(ms) | - |
-| z-index | 设置层级 | number | - | 10 | - |
-| custom-style | 自定义弹出层样式 | string | - | - | - |
-| modal | 是否显示遮罩 | boolean | - | true | - |
-| modal-style | 自定义modal蒙层样式 | string | - | - | - |
-| hide-when-close | 是否当关闭时将弹出层隐藏（display: none) | boolean | - | true | - |
-| lazy-render | 弹层内容懒渲染，触发展示时才渲染内容 | boolean | - | true | - |
-| safe-area-inset-bottom | 弹出面板是否设置底部安全距离（iphone X 类型的机型） | boolean | - | false | - |
-| lockScroll | 是否锁定背景滚动 | boolean | - | true | 0.1.30 |
-
-## Events
-
-| 事件名称 | 说明 | 参数 | 最低版本 |
-|---------|-----|-----|---------|
-| close | 弹出层关闭时触发 | - | - |
-| click-modal | 点击遮罩时触发 | - | - |
-| before-enter | 进入前触发 | - | - |
-| enter | 进入时触发 | - | - |
-| after-enter | 进入后触发 | - | - |
-| before-leave | 离开前触发 | - | - |
-| leave | 离开时触发 | - | - |
-| after-leave | 离开后触发| - | - |
-
-## 外部样式类
-
-| 类名 | 说明 | 最低版本 |
-|-----|------|--------|
-| custom-class | 根节点样式 | - |
+| 事件名 | 说明       | 回调参数 | 版本 |
+| :----- | :--------- | :------- | :--- |
+| open   | 弹出层打开 | -        | -    |
+| close  | 弹出层收起 | -        | -    |

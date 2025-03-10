@@ -1,0 +1,67 @@
+<template>
+	<view class="su-page">
+		<view class="su-demo-block">
+			<text class="su-demo-block__title">基本案例</text>
+			<view class="su-demo-block__content">
+				<view class="su-page__image-item">
+					<up-image :showLoading="true" :src="src" width="80px" height="80px" @click="click"></up-image>
+				</view>
+			</view>
+		</view>
+		<view class="su-demo-block">
+			<text class="su-demo-block__title">自定义形状</text>
+			<view class="su-demo-block__content">
+				<view class="su-page__image-item">
+					<up-image shape="circle" :src="src" width="80px" height="80px"></up-image>
+				</view>
+			</view>
+		</view>
+		<view class="su-demo-block">
+			<text class="su-demo-block__title">自定义圆角</text>
+			<view class="su-demo-block__content">
+				<view class="su-page__image-item">
+					<up-image radius="4" :src="src" width="80px" height="80px"></up-image>
+				</view>
+			</view>
+		</view>
+		<view class="su-demo-block">
+			<text class="su-demo-block__title">图片模式(widthFix)</text>
+			<view class="su-demo-block__content">
+				<view class="su-page__image-item">
+					<up-image :src="src" width="80px" height="80px" mode="widthFix"></up-image>
+				</view>
+			</view>
+		</view>
+		<view class="su-demo-block">
+			<text class="su-demo-block__title">自定义图片加载插槽</text>
+			<view class="su-demo-block__content">
+				<view class="su-page__image-item">
+					<up-image :src="src1" width="80px" height="80px" mode="widthFix">
+						<template v-slot:loading>
+							<up-loading-icon color="red"></up-loading-icon>
+						</template>
+					</up-image>
+				</view>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue'
+
+const src = ref('https://pic3.zhimg.com/v2-5fb13110e1de13d4c11e6e7f5b8026da_r.jpg')
+const src1 = ref('')
+
+function click() {
+	console.log('click')
+}
+
+onMounted(() => {
+	setTimeout(() => {
+		src1.value = src.value
+	}, 3000)
+})
+</script>
+
+<style lang="scss"></style>
